@@ -6,7 +6,7 @@ gem 'rails', '4.0.0'
 gem 'bootstrap-sass', '2.3.2.0'
 
 if ENV["RAILS_ENV"] ||= "development"
-  # Windows error with bcrypt-ruby 3.0.1
+  # Windows error with bcrypt-ruby 3.0.1`	
   gem 'bcrypt-ruby', git: 'https://github.com/hananamar/bcrypt-ruby.git', :require => 'bcrypt'
 else
   gem 'bcrypt-ruby', '3.0.1'
