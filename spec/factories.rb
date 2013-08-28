@@ -9,4 +9,10 @@ FactoryGirl.define do
     	admin true
     end
   end
+
+  factory :device do
+  	sequence(:name) { |n| "Device ##{n}" }
+  	sequence(:description) { |n| "Super device no. #{n}"}
+  	user
+  end
 end

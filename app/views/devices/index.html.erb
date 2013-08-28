@@ -1,0 +1,20 @@
+<% provide(:title, 'Devices') %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+	<% if @user.devices.any? %>
+	  <h3>Devices (<%= @user.devices.count %>)</h3>
+    <%= render 'device_form' %>
+	  <ol class="devices">
+	    <%= render @devices %>
+	  </ol>
+	<% end %>
+	</div>
+</div>

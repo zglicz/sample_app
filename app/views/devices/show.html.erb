@@ -1,0 +1,24 @@
+<% provide(:title, "#{@device.name}") %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <%= link_to("List of devices", user_devices_path(@user)) %>
+    <%= render @devices %>
+  </aside>
+  <div class="span8">
+	<h3>List of movies on <%= @device.name %></h3>
+  <%= form_for([@user, @device]) do |f|%>
+    <%= render 'shared/error_messages', object: @device %>
+
+    <%= f.text_area :name, placeholder: @device.name %>
+    <%= f.text_area :description, placeholder: @device.description %>
+    <%= f.submit "Update device", class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "Delete device", [@user, @device], :method => :delete, :class => "btn" %>
+  </div>
+</div>

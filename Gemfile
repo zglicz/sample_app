@@ -15,18 +15,22 @@ else
   gem 'bcrypt-ruby', '3.0.1'
 end
 
+group :development do
+  gem 'better_errors'
+end
+
 group :development, :test do
   gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.13.1'
+  gem 'factory_girl_rails', '4.2.1'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
 group :test do
   gem 'selenium-webdriver', '2.0.0'
   gem 'capybara', '2.1.0'
-  gem 'factory_girl_rails', '4.2.1'
   gem 'cucumber-rails', '1.3.0', :require => false
-  gem 'database_cleaner', github: 'bmabey/database_cleaner'
-  gem 'capybara-screenshot'
 end
 
 gem 'sass-rails', '4.0.0'

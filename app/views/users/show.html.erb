@@ -7,5 +7,10 @@
         <%= @user.name %>
       </h1>
     </section>
+    <%= link_to("Devices list", user_devices_path(@user)) %>
+    <%= render @devices %>
   </aside>
+  <div class="span8">
+    TODO: Movies list
+  </div>
 </div>

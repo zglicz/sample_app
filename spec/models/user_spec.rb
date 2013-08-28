@@ -15,6 +15,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:devices) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -121,5 +122,23 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "device associations" do
+    before { @user.save }
+    let!(:device_uno) { FactoryGirl.create(:device, user: @user) }
+
+    it "should have devices added" do
+      expect(@user.devices).to include(device_uno)
+    end
+
+    it "should destroy associated devices" do
+      devices = @user.devices.to_a
+      @user.destroy
+      expect(devices).not_to be_empty
+      devices.each do |device|
+        expect(Device.where(id: device.id)).to be_empty
+      end
+    end
   end
 end

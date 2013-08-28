@@ -17,6 +17,10 @@ describe "User pages" do
 
   	it { should have_content(user.name) }
   	it { should have_title(user.name) }
+
+    describe "movies list" do
+      it { should have_content("Movies list") }
+    end
   end
 
   describe "signup" do
