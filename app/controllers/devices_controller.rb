@@ -1,7 +1,7 @@
 class DevicesController < ApplicationController
 	before_action :signed_in_user
 	before_action :correct_user
-	before_action :setup_devices
+	before_action :setup_devices, only: [:index, :show, :create]
 	before_action :setup_current_device, only: [:show, :update]
 
 	def index
@@ -38,16 +38,16 @@ class DevicesController < ApplicationController
 	end
 
 	private
+		def setup_devices
+			@devices = @user.devices.to_a
+		end
+
 		def setup_current_device
 			@device = @user.devices.find(params[:id])
 		end
 
 		def device_params
 			params.require(:device).permit(:name, :description)
-		end
-
-		def setup_devices
-			@devices = @user.devices
 		end
 
 		def signed_in_user

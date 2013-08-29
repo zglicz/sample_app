@@ -8,11 +8,11 @@
       </h1>
     </section>
     <%= link_to("List of devices", user_devices_path(@user)) %>
-    <%= render @devices %>
+    <%= render @user.devices %>
   </aside>
   <div class="span8">
 	<h3>List of movies on <%= @device.name %></h3>
-  <%= form_for([@user, @device]) do |f|%>
+  <%= form_for([@user, @device], html: { :class => "device_form" }) do |f|%>
     <%= render 'shared/error_messages', object: @device %>
 
     <%= f.text_area :name, placeholder: @device.name %>

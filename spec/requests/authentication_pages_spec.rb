@@ -11,6 +11,7 @@ describe "Authentication" do
     it { should have_title('Sign in') }
     it { should_not have_link('Profile') }
     it { should_not have_link('Settings') }
+    it { should_not have_link('Devices') }
   end
 
   describe "signin" do
@@ -33,10 +34,11 @@ describe "Authentication" do
       before { valid_signin(user) }
 
       it { should have_title(user.name) }
-      it { should have_link('Profile',     href: user_path(user)) }
-      it { should have_link('Settings',    href: edit_user_path(user)) }
-      it { should have_link('Sign out',    href: signout_path) }
-      it { should have_link('Users',       href: users_path) }
+      it { should have_link('Profile',      href: user_path(user)) }
+      it { should have_link('Settings',     href: edit_user_path(user)) }
+      it { should have_link('Sign out',     href: signout_path) }
+      it { should have_link('Users',        href: users_path) }
+      it { should have_link('Devices',      href: user_devices_path(user)) }
       it { should_not have_link('Sign in', href: signin_path) }
     end
   end
