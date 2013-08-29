@@ -16,6 +16,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:devices) }
+  it { should respond_to(:movies) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -138,6 +139,25 @@ describe User do
       expect(devices).not_to be_empty
       devices.each do |device|
         expect(Device.where(id: device.id)).to be_empty
+      end
+    end
+  end
+
+  describe "movie associations" do
+    before { @user.save }
+    let!(:device_uno) { FactoryGirl.create(:device, user: @user) }
+    let!(:movie) { FactoryGirl.create(:movie, user: @user, device: device_uno) } 
+
+    it "should have movie added" do
+      expect(@user.movies).to include(movie)
+    end
+
+    it "should destroy associated movies" do
+      movies = @user.movies.to_a
+      @user.destroy
+      expect(movies).not_to be_empty
+      movies.each do |movie|
+        expect(Movie.where(id: movie.id)).to be_empty
       end
     end
   end

@@ -1,17 +1,13 @@
 <% provide(:title, 'Devices') %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
+  <%= render 'users/user_info' %>
   <div class="span8">
 	<% if @user.devices.any? %>
 	   <h3>Devices (<%= @user.devices.count %>)</h3>
-     <%= render 'device_form' %>
+     <%= form_for([@user, @device], html: { class: "device_form"} ) do |f| %>
+       <%= render 'device_form', f: f %>
+       <%= f.submit "Add device", class: "btn btn-primary" %>
+     <% end %>
      <h6>dskafls<%= @user.devices.count %></h6>
      <ol class="devices">
 	     <%= render @devices %>

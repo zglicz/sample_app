@@ -15,4 +15,15 @@ FactoryGirl.define do
   	sequence(:description) { |n| "Super device no. #{n}"}
   	user
   end
+
+  factory :movie do
+    sequence(:folder_name) { |n| "MyFolderName#{n}"}
+    name "Normal name"
+    no_of_files 0
+    total_size 0
+    imdb_id "<>"
+    tagged false
+    user
+    device
+  end
 end

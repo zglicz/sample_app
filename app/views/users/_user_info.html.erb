@@ -1,0 +1,12 @@
+<aside class="span4">
+	<section>
+		<h1>
+			<%= gravatar_for @user %>
+			<%= link_to(@user.name, user_path(@user)) %>
+		</h1>
+	</section>
+	<%= link_to("Devices list", user_devices_path(@user)) %>
+	<% if @devices and @devices.any? %>
+		<%= render @devices %>
+	<% end %>
+</aside>

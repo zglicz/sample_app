@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
   resources :users do
     resources :devices
+    resources :movies
   end
   resources :sessions, only: [:new, :create, :destroy]
 

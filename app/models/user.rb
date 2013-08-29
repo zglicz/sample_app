@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	has_many :devices, dependent: :destroy
+	has_many :movies, dependent: :destroy
 
 	before_save { self.email.downcase! }
 	before_create :create_remember_token

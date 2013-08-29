@@ -1,16 +1,12 @@
-<%= form_for([@user, @device], html: { class: "device_form"} ) do |f| %>
-	<%= render 'shared/error_messages', object: @device %>
+<%= render 'shared/error_messages', object: @device %>
 
-	<div class="field">
-		<%= f.text_area :name, placeholder: "Name" %>
-		<%= f.text_area :description, placeholder: "Description" %>
-		<div id="file_holder">
-			<div class="wrapper">
-				<%= f.file_field :device_contents, placeholder: "Choose file" %>
-			</div>
-			<button class="btn btn-large">Device summary</button>
+<div class="field">
+	<%= f.text_area :name, placeholder: "Name" %>
+	<%= f.text_area :description, placeholder: "Description" %>
+	<div id="file_holder">
+		<div class="wrapper">
+			<%= f.file_field :device_contents, placeholder: "Choose file" %>
 		</div>
-
-		<%= f.submit "Add device", class: "btn btn-primary" %>
+		<button class="btn btn-large">Device summary</button>
 	</div>
-<% end %>
+</div>

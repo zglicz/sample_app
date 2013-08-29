@@ -1,16 +1,10 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <%= link_to("Devices list", user_devices_path(@user)) %>
-    <%= render @devices %>
-  </aside>
+  <%= render 'user_info' %>
   <div class="span8">
-    TODO: Movies list
+    <% if @user.movies.any? %>
+      <h3>Movies list (<%= @user.movies.count %>)</h3>
+      <%= render 'movies/movies', movies: @movies %>
+    <% end %>
   </div>
 </div>

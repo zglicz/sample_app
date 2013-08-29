@@ -12,14 +12,21 @@ describe "User pages" do
   end
 
   describe "profile page" do
-  	let(:user) { FactoryGirl.create(:user) }
-  	before { visit user_path(user) }
+  	let!(:user) { FactoryGirl.create(:user) }
+    let!(:device) { FactoryGirl.create(:device, user: user) }
+    let!(:movie) { FactoryGirl.create(:movie, user: user, device: device) }
+
+  	before do
+      sign_in user
+      visit user_path(user)
+    end
 
   	it { should have_content(user.name) }
   	it { should have_title(user.name) }
 
     describe "movies list" do
-      it { should have_content("Movies list") }
+      it { should have_content("Movies list (1)") }
+      it { should have_content(movie.name) }
     end
   end
 

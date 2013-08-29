@@ -9,6 +9,7 @@ class DevicesController < ApplicationController
 	end
 
 	def show
+		@movies = @device.movies.paginate(page: params[:page])
 	end
 
 	def create
@@ -38,9 +39,6 @@ class DevicesController < ApplicationController
 	end
 
 	private
-		def setup_devices
-			@devices = @user.devices.to_a
-		end
 
 		def setup_current_device
 			@device = @user.devices.find(params[:id])

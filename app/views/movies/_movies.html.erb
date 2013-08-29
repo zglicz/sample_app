@@ -1,0 +1,18 @@
+<%= will_paginate movies %>
+
+<table width="100%">
+	<tr>
+		<th>Name</th>
+		<th>Folder name</th>
+		<th>Files</th>
+		<th>Size</th>
+		<th>IMDB id</th>
+		<th>Tagged</th>
+		<th>Device name</th>
+	</tr>
+<% movies.each do |movie| %>
+	<%= render 'movies/movie', movie: movie %>
+<% end %>
+</table>
+
+<%= will_paginate movies %>

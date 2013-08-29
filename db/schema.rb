@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827085905) do
+ActiveRecord::Schema.define(version: 20130829095425) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -29,6 +29,23 @@ ActiveRecord::Schema.define(version: 20130827085905) do
   end
 
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+
+  create_table "movies", force: true do |t|
+    t.string   "name"
+    t.string   "folder_name"
+    t.integer  "no_of_files"
+    t.integer  "total_size"
+    t.integer  "imdb_id"
+    t.boolean  "tagged"
+    t.integer  "user_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "movies", ["device_id", "folder_name"], name: "index_movies_on_device_id_and_folder_name", unique: true
+  add_index "movies", ["device_id"], name: "index_movies_on_device_id"
+  add_index "movies", ["user_id"], name: "index_movies_on_user_id"
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

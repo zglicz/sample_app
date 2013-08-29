@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user,        only: [:edit, :update, :index, :destroy]
+  before_action :signed_in_user,        only: [:edit, :update, :index, :destroy, :show]
   before_action :correct_user,          only: [:edit, :update]
   before_action :admin_user,            only: :destroy
   before_action :not_needed_for_signed, only: [:new, :create]
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @devices = @user.devices
+    @movies = @user.movies.paginate(page: params[:page])
   end
 
   def create

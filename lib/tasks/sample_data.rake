@@ -17,10 +17,17 @@ namespace :db do
     end
 
     users = User.all(limit: 5)
-    10.times do
-      name = Faker::Name.first_name()
-      description = Faker::Lorem.sentence(5)
-      users.each { |user| user.devices.create!(name: name, description: description) }
+    users.each do |user| 
+      5.times do
+        name = Faker::Name.first_name()
+        description = Faker::Lorem.sentence(5)
+        device = user.devices.create!(name: name, description: description)
+        10.times do |num|
+          folder_name = "movie#{num}"
+          device.movies.create!(folder_name: folder_name, user: user, name: folder_name,
+                no_of_files: 0, total_size: 0, imdb_id: "<>", tagged: false)
+        end
+      end
     end
   end
 end
