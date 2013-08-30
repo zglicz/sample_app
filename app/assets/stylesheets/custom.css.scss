@@ -2,10 +2,6 @@
 
 /* mixins, variables, etc. */
 
-tr:hover {
-  background: #A9F5BC;
-}
-
 $grayMediumLight: #eaeaea;
 
 @mixin box_sizing {
@@ -237,4 +233,23 @@ aside {
       border-bottom: 1px solid $grayLighter;
     }
   }
+}
+
+/*  movies table */
+tr:hover {
+  background: #A9F5BC;
+}
+
+th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+th .asc {
+  background-image: url('arrow-up-icon.png');
+}
+
+th .desc {
+  background-image: url('arrow-down-icon.png');
 }

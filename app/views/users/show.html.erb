@@ -4,7 +4,12 @@
   <div class="span10">
     <% if @user.movies.any? %>
       <h3>Movies list (<%= @user.movies.count %>)</h3>
-      <%= render 'movies/movies', movies: @movies %>
+      <%= form_tag user_path(@user), :method => 'get', :class => "movies_search" do %>
+		<%= render 'movies/search_movie' %>
+	  <% end %>
+	  <div id="movies">
+      	<%= render 'movies/movies', movies: @movies %>
+      </div>
     <% end %>
   </div>
 </div>

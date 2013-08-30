@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @devices = @user.devices
-    @movies = @user.movies.paginate(page: params[:page])
+    @movies = get_movies(@user)
   end
 
   def create

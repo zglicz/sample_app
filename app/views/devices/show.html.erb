@@ -12,6 +12,11 @@
        <% end %>
     <% end %>
     <%= link_to "Delete device", [@user, @device], :method => :delete, :class => "btn" %>
-    <%= render 'movies/movies', movies: @movies %>
+    <%= form_tag [@user, @device], :method => 'get', :class => "movies_search" do %>
+      <%= render 'movies/search_movie' %>
+    <% end %>
+    <div id="movies">
+      <%= render 'movies/movies', movies: @movies %>
+    </div>
   </div>
 </div>

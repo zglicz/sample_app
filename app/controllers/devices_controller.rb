@@ -9,7 +9,7 @@ class DevicesController < ApplicationController
 	end
 
 	def show
-		@movies = @device.movies.paginate(page: params[:page])
+		@movies = get_movies(@device)
 	end
 
 	def create

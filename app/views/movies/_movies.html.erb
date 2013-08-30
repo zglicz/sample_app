@@ -1,14 +1,13 @@
-<%= will_paginate movies %>
 
-<table width="100%">
+<table width="100%" border="1px">
 	<tr>
-		<th>Name</th>
-		<th>Folder name</th>
-		<th>Files</th>
-		<th>Size</th>
-		<th>IMDB id</th>
-		<th>Tagged</th>
-		<th>Device name</th>
+		<th><%= sortable "name", "Name" %></th>
+		<th><%= sortable "folder_name", "Folder name" %></th>
+		<th><%= sortable "no_of_files", "Files" %></th>
+		<th><%= sortable "total_size", "Size" %></th>
+		<th><%= sortable "imdb_id", "IMDB" %></th>
+		<th><%= sortable "tagged", "Tagged" %></th>
+		<th><%= sortable "device_id", "Device" %></th>
 	</tr>
 <% movies.each do |movie| %>
 	<%= render 'movies/movie', movie: movie %>
