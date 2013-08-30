@@ -37,7 +37,7 @@ csv_summary = CSV.generate do |csv|
 		else 
 			files = media_files.select{ |f| movie? f }
 			no_of_files = files.length
-			sum_of_sizes = media_files.inject(0){ |sum, f| sum + File.size(f)}
+			sum_of_sizes = media_files.inject(0){ |sum, f| sum + File.size(f)} / 2**20
 		end
 		csv << [folder, no_of_files, sum_of_sizes]
 	end
