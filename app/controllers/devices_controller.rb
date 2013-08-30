@@ -1,6 +1,6 @@
 class DevicesController < ApplicationController
 	before_action :signed_in_user
-	before_action :correct_user
+	before_action :correct_user_with_user_id
 	before_action :setup_devices, only: [:index, :show, :create]
 	before_action :setup_current_device, only: [:show, :update]
 
@@ -15,6 +15,7 @@ class DevicesController < ApplicationController
 	def create
 		@device  = @user.devices.build(device_params)
 		if @device.save
+			Movie.import(@device, params[:device][:file]) if params[:device][:file]
 			flash[:success] = "Device saved" 
 			redirect_to user_devices_path(@user)
 		else

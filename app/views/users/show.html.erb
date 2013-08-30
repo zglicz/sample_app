@@ -1,7 +1,7 @@
 <% provide(:title, @user.name) %>
 <div class="row">
   <%= render 'user_info' %>
-  <div class="span8">
+  <div class="span10">
     <% if @user.movies.any? %>
       <h3>Movies list (<%= @user.movies.count %>)</h3>
       <%= render 'movies/movies', movies: @movies %>

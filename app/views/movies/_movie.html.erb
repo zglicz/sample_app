@@ -1,8 +1,10 @@
 <tr align="center">
-	<td><%= link_to(movie.name, url_for([@user, movie])) %></td>
-	<td><%= movie.folder_name %></td>
+	<td title="<%= movie.name %>">
+		<%= link_to(wrap(movie.name), url_for([@user, movie])) %>
+	</td>
+	<td title="<%= movie.name %>"><%= wrap(movie.folder_name) %></td>
 	<td><%= movie.no_of_files %></td>
-	<td><%= movie.total_size %></td>
+	<td><%= movie.total_size / 1.megabyte%></td>
 	<td><%= movie.imdb_id %></td>
 	<td><%= movie.tagged %></td>
 	<td><%= link_to(movie.device.name, url_for([@user, movie.device])) %></td>

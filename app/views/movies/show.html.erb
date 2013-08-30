@@ -1,6 +1,8 @@
+<% provide(:title, @movie.name) %>
 <div class="row">
 	<%= render 'users/user_info' %>
-	<div class="span8">
+	<div class="span10">
 		<h1><%= @movie.name %></h3>
+		<%= link_to @movie.device.name, user_device_path(@user, @movie.device) %>
 	</div>
 </div>

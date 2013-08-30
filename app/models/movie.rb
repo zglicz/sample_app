@@ -3,4 +3,19 @@ class Movie < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :device
+
+	def self.import(owning_device, file)
+		owning_device.movies.destroy_all
+		puts owning_device.inspect
+		CSV.foreach(file.path, headers: true) do |row|
+			new_movie = owning_device.movies.new(name: row["folder_name"],
+								folder_name: row["folder_name"],
+								no_of_files: row["no_of_files"],
+								total_size: row["total_size"],
+								imdb_id: "<>",
+								tagged: false,
+								user_id: owning_device.user_id)
+			new_movie.save
+		end
+	end
 end

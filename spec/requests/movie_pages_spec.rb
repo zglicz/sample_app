@@ -12,7 +12,7 @@ describe "Movie pages" do
 		before { visit url_for([user, movie]) }
 
 		it { should have_title(movie.name) }
-		it { should have_link(movie.device.name, href: url_for([user, device]))}
+		it { should have_link(device.name) }
 		 
 	end
 end
