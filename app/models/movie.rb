@@ -11,7 +11,7 @@ class Movie < ActiveRecord::Base
 			new_movie = owning_device.movies.new(name: row["folder_name"],
 								folder_name: row["folder_name"],
 								no_of_files: row["no_of_files"],
-								total_size: row["total_size"],
+								total_size: row["total_size"].to_i / 1.megabyte,
 								imdb_id: "<>",
 								tagged: false,
 								user_id: owning_device.user_id)
