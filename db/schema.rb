@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130829095425) do
+ActiveRecord::Schema.define(version: 20130905130933) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20130829095425) do
     t.string   "folder_name"
     t.integer  "no_of_files"
     t.integer  "total_size"
-    t.integer  "imdb_id"
+    t.string   "imdb_id"
     t.boolean  "tagged"
     t.integer  "user_id"
     t.integer  "device_id"

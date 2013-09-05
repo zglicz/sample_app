@@ -3,24 +3,48 @@
 	<%= render 'users/user_info' %>
 	<div class="span10">
 		<h1><%= @movie.name %></h3>
-		<%= link_to @movie.device.name, user_device_path(@user, @movie.device) %>
-		<% if @imdb_search %>
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Year</th>
-					<th>ID</th>
-				</tr>
-			<% @imdb_search.each do |movie| %>
-				<tr>
-					<td><%= movie["Title"] %><td>
-					<td><%= movie["Year"] %></td>
-					<td><%= link_to(movie["imdbID"], "http://www.imdb.com/title/" + movie["imdbID"]) %></td>
-				</tr>
+		<p><%= link_to('Back to device (' + @movie.device.name + ')', user_device_path(@user, @movie.device)) %></p>
+
+		<% if not @movie.tagged %>
+			<% if @imdb_search %>
+			<%= form_for([@user, @movie]) do |f| %>
+				<%= f.submit "Save choice", class: "btn btn-primary" %>
+				<table width=100%>
+					<tr>
+						<th>Name</th>
+						<th>Year</th>
+						<th>ID</th>
+						<th>Match</th>
+					</tr>
+				<% @imdb_search.each do |movie| %>
+					<tr>
+						<td><%= movie["Title"] %></td>
+						<td><%= movie["Year"] %></td>
+						<td><%= link_to(movie["imdbID"], "http://www.imdb.com/title/" + movie["imdbID"]) %></td>
+						<td><%= f.radio_button(:imdb_id, movie["imdbID"] + '_' + movie["Title"]) %></td>
+					</tr>
+				<% end %>
+				</table>
 			<% end %>
-			</table>
+			<% else %>
+				No suggestions available
+			<% end %>
 		<% else %>
-			No suggestions available
+			<%= form_for([@user, @movie], :method => :delete) do |f| %>
+				<%= f.submit "Incorrect association", class: "btn" =%>
+			<% end %>
+			<div>
+				<div style="float: left;"><%= image_tag(@imdb_search['Poster']) %></div>
+				<div style="float: clear;">
+					Title: 	<%= @imdb_search['Title'] %>
+					<br>
+					Year:	<%= @imdb_search['Year'] %>
+					</br>
+					Actors: <%= @imdb_search['Actors'] %>
+					</br>
+					Plot:	<%= @imdb_search['Plot'] %>
+				</div>
+			</div>
 		<% end %>
 	</div>
 </div>

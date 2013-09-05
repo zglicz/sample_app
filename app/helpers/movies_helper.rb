@@ -43,5 +43,9 @@ module MoviesHelper
 		def search(limit=10)
 			self.class.get('/', :query => { :s => @name })
 		end
+
+		def info
+			self.class.get('/', :query => { :i => @name })
+		end
 	end
 end

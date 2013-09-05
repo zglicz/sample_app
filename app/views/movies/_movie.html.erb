@@ -5,7 +5,13 @@
 	<td title="<%= movie.name %>"><%= wrap(movie.folder_name) %></td>
 	<td><%= movie.no_of_files %></td>
 	<td><%= movie.total_size %></td>
-	<td><%= movie.imdb_id %></td>
+	<td>
+		<% if movie.tagged %>
+			<%= link_to(movie.imdb_id, "http://www.imdb.com/title/" + movie.imdb_id) %>
+		<% else %>
+			<%= movie.imdb_id %>
+		<% end %>
+	</td>
 	<td><%= movie.tagged %></td>
 	<td><%= link_to(movie.device.name, url_for([@user, movie.device])) %></td>
 </tr>
