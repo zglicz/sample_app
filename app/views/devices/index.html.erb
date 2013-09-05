@@ -9,10 +9,9 @@
        <%= render 'device_form', f: f %>
        <%= f.submit "Add device", class: "btn btn-primary" %>
      <% end %>
-     <h6>dskafls<%= @user.devices.count %></h6>
-     <ol class="devices">
+     <div class="devices">
 	     <%= render @devices %>
-     </ol>
+     </div>
 	<% end %>
 	</div>
 </div>

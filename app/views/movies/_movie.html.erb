@@ -7,5 +7,5 @@
 	<td><%= movie.total_size %></td>
 	<td><%= movie.imdb_id %></td>
 	<td><%= movie.tagged %></td>
-	<td><%= link_to(@device.name, url_for([@user, @device])) %></td>
+	<td><%= link_to(movie.device.name, url_for([@user, movie.device])) %></td>
 </tr>

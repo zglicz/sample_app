@@ -4,5 +4,23 @@
 	<div class="span10">
 		<h1><%= @movie.name %></h3>
 		<%= link_to @movie.device.name, user_device_path(@user, @movie.device) %>
+		<% if @imdb_search %>
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Year</th>
+					<th>ID</th>
+				</tr>
+			<% @imdb_search.each do |movie| %>
+				<tr>
+					<td><%= movie["Title"] %><td>
+					<td><%= movie["Year"] %></td>
+					<td><%= link_to(movie["imdbID"], "http://www.imdb.com/title/" + movie["imdbID"]) %></td>
+				</tr>
+			<% end %>
+			</table>
+		<% else %>
+			No suggestions available
+		<% end %>
 	</div>
 </div>
