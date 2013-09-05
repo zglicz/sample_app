@@ -20,15 +20,48 @@ module MoviesHelper
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
 	end
 
-	forbidden_words = Regexp.union('dvd', 'rip', 'unrated', '720p', '1080p',
-		'xvid', 'ac3', 'scr', 'bluray', 'limited')
+	def match_all
+		movies = @user.movies.where(tagged: false)
+		how_many = 0
+		movies.each do |movie|
+			movie_data = search_data(movie.folder_name)
+			puts "looking for: #{movie.folder_name}"
+			next unless movie_data
+			first_data = movie_data.first
+			next unless first_data
+			update_data(movie, first_data['Title'], first_data['imdbID'])
+			how_many += 1
+		end
+		how_many
+	end
+
+	def search_data(folder_name)
+		imdb_search_object = IMDB.new(process_folder_name(folder_name)).search
+		hashyk = JSON.parse imdb_search_object.body
+		imdb_search = hashyk['Search']
+		imdb_search = imdb_search.find_all{ |movie| movie['Type'] == "movie"} if imdb_search
+		imdb_search
+	end
+
+	def update_data(movie, name, imdb_id)
+		movie.name = name
+		movie.imdb_id = imdb_id
+		movie.tagged = true
+		movie.save
+	end
 
 	def process_folder_name(folder_name)
+		forbidden_words = Regexp.union('dvd', 'rip', 'unrated', '720p', '1080p',
+			'xvid', 'ac3', 'scr', 'bluray', 'limited', 'extended')
+		forbidden_search = Regexp.new(forbidden_words.source, Regexp::IGNORECASE)
 		res = folder_name.dup
 		res.gsub!(/\./, ' ')
 		first_pos = res.index(/[\[\]()]|(\d{4})/)
 		res = res[0, first_pos].strip if first_pos
-		res
+		words = res.split(' ')
+		bad_index = words.find_index{ |word| word =~ forbidden_search }
+		words = words[0, bad_index] if bad_index
+		res = words.join(' ')
 	end
 
 	# for api calls

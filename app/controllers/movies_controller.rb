@@ -3,9 +3,7 @@ class MoviesController < ApplicationController
 
 	def show
 		if not @movie.tagged
-			imdb_search_object = IMDB.new(process_folder_name(@movie.folder_name)).search
-			hashyk = JSON.parse imdb_search_object.body
-			@imdb_search = hashyk['Search']
+			@imdb_search = search_data(@movie.folder_name)
 		else # tagged movie
 			imdb_search_object = IMDB.new(@movie.imdb_id).info
 			@imdb_search = JSON.parse imdb_search_object.body
@@ -16,10 +14,7 @@ class MoviesController < ApplicationController
 		imdb_info = params[:movie][:imdb_id]
 		if imdb_info
 			result = imdb_info.split('_')
-			@movie.imdb_id = result[0]
-			@movie.tagged = true
-			@movie.name = result[1]
-			@movie.save
+			update_data(@movie, result[1], result[0])
 			flash[:success] = "Successfully tagged movie"
 		else
 			flash[:error] = "Select one movie"
@@ -39,7 +34,6 @@ class MoviesController < ApplicationController
 	end
 
 private
-	
 	def setup_movie
 		@movie = Movie.find(params[:id])
 	end

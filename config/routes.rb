@@ -2,6 +2,7 @@ SampleApp::Application.routes.draw do
   resources :users do
     resources :devices
     resources :movies
+    match '/match', to: 'users#match',  via: 'get'
   end
   resources :sessions, only: [:new, :create, :destroy]
 

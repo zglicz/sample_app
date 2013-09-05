@@ -1,8 +1,9 @@
 
-<table width="100%" border="1px">
+<%= link_to("Match all movies", user_match_path(@user)) %>
+
+<table width="100%">
 	<tr>
 		<th><%= sortable "name", "Name" %></th>
-		<th><%= sortable "folder_name", "Folder name" %></th>
 		<th><%= sortable "no_of_files", "Files" %></th>
 		<th><%= sortable "total_size", "Size" %></th>
 		<th><%= sortable "imdb_id", "IMDB" %></th>

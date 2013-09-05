@@ -1,15 +1,18 @@
 require 'csv'
 require 'digest/sha1'
 
-forbidden_words = Regexp.union('dvd', 'rip', 'unrated', '720p', '1080p',
-		'xvid', 'ac3', 'scr', 'bluray', 'limited')
-
 def process_folder_name(folder_name)
+	forbidden_words = Regexp.union('dvd', 'rip', 'unrated', '720p', '1080p',
+		'xvid', 'ac3', 'scr', 'bluray', 'limited', 'extended')
+	forbidden_search = Regexp.new(forbidden_words.source, Regexp::IGNORECASE)
 	res = folder_name.dup
 	res.gsub!(/\./, ' ')
 	first_pos = res.index(/[\[\]()]|(\d{4})/)
 	res = res[0, first_pos].strip if first_pos
-	res
+	words = res.split(' ')
+	bad_index = words.find_index{ |word| word =~ forbidden_search }
+	words = words[0, bad_index] if bad_index
+	res = words.join(' ')
 end
 
 
@@ -41,7 +44,7 @@ csv_summary = CSV.generate do |csv|
 	folders.each do |folder|
 		next if folder == '.' or folder == '..'
 		puts folder
-		puts "\t#{process(folder)}"
+		puts "\t#{process_folder_name(folder)}"
 		media_files = Dir.glob(media_folder + "/" + folder + "/**/*")
 		if media_files.empty?
 			puts "\tERROR on: #{folder}\n"

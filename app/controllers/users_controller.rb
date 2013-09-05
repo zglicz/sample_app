@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user,        only: [:edit, :update, :index, :destroy, :show]
-  before_action :correct_user,          only: [:edit, :update]
+  before_action :signed_in_user,        only: [:edit, :update, :index, :destroy, :show, :match]
+  before_action :correct_user,          only: [:edit, :update, :match]
   before_action :admin_user,            only: :destroy
   before_action :not_needed_for_signed, only: [:new, :create]
 
@@ -51,6 +51,11 @@ class UsersController < ApplicationController
       flash[:success] = "User destroyed"
     end
     redirect_to users_url
+  end
+
+  def match
+    updated = match_all
+    redirect_to @user, :notice => "Added #{updated} associations"
   end
 
   private
