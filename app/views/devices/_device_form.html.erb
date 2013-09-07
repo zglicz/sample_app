@@ -3,6 +3,58 @@
 <div class="field">
 	<%= f.text_area :name, placeholder: "Name" %>
 	<%= f.text_area :description, placeholder: "Description" %>
-	<%= f.file_field :file, :webkitdirectory => "", class: "hidden-input" %>
-	<button id="directory-upload" class="btn btn-large">Device summary</button>
+	<input type="file" id="upload-file" class="hidden-input" multiple webkitdirectory>
+	<%= hidden_field_tag :file_contents %>
+	<button type="button" class="btn" id="directory-upload">Device summary</button>
 </div>
+<ul id="outer"></ul>
+<script>
+	(function(){
+	    var files, 
+	        file, 
+	        extension,
+	        input = document.getElementById("upload-file"),
+	        button = document.getElementById("directory-upload"),
+	        outer = document.getElementById("outer"),
+	        data = {};
+	    button.addEventListener("click", function(e) {
+	    	input.click();
+	    	e.preventDefault();
+	    	return false;
+	    }, false);
+	    function isMovie(file) {
+	    	return file.type.length >= 5 && "video" === file.type.substring(0, 5)
+	    			&& file.size > Math.pow(2, 20) * 150 && file.webkitRelativePath.split('/').length > 2;
+	    }
+	    function add(file) {
+	    	var names = file.webkitRelativePath.split("/");
+	    	var noOfFiles = 0, total_size = 0;
+	    	if (names[1] in data) {
+	    		noOfFiles = data[names[1]][0];
+	    		total_size = data[names[1]][1];
+	    	}
+	    	noOfFiles += 1;
+	    	total_size += file.size;
+	    	data[names[1]] = [noOfFiles, total_size]; 
+	    }
+	    input.addEventListener("change", function(e) {
+	        files = e.target.files;
+	        var files_text = "";
+	        data = {};
+	        for (var i = 0, len = files.length; i < len; i++) {
+	            file = files[i];
+	            if (isMovie(file)) {
+	            	add(file);
+		        }
+	        }
+	        var n_res = "folder_name,no_of_files,total_size\n";
+	        for (var folder_name in data) {
+	        	var size = parseInt(data[folder_name][1] / Math.pow(2, 20), 10);
+	        	n_res += folder_name + "," + data[folder_name][0] + "," + size + "\n";
+	        }
+	        var content_element = document.getElementById("file_contents");
+	        content_element.value = n_res;
+	        alert(nres);
+	    }, false);
+	})();
+</script>

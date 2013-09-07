@@ -15,11 +15,9 @@ class DevicesController < ApplicationController
 	def create
 		@device  = @user.devices.build(device_params)
 		if @device.save
-			data = params[:device][:folder]
+			data = params[:file_contents]
+			Movie.import(@device, data) if data
 			flash[:success] = "Device saved" 
-			puts data.class
-			puts data.methods
-			puts data.inspect
 			redirect_to user_devices_path(@user)
 		else
 			render 'index'

@@ -20,23 +20,4 @@ $("document").ready(function(){
 		$.get($(".movies_search").attr('action'), $(".movies_search").serialize(), null, "script");
 		return false;
 	});
-	var fileInput = $('input[webkitdirectory]');
-	fileInput.change(function(e) {
-		//e.preventDefault();
-		alert("Hola, change");
-		//file_list = e.target.files;
-		//var output = [];
-		//for (var i = 0, file ; file = file_list[i] ; ++i) {
-		//	output.push(file.webkitRelativePath);
-		//}
-		e.preventDefault();
-	});
-	$('#directory-upload').click(function(e) {
-		alert('button clicked');
-		fileInput.click();
-		alert('clicked');
-		e.preventDefault();
-	});
 });
-
-
