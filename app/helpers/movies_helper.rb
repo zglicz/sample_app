@@ -24,18 +24,24 @@ module MoviesHelper
 		movies = @user.movies.where(tagged: false)
 		how_many = 0
 		movies.each do |movie|
-			movie_data = search_data(movie.folder_name)
+			movie_data = search_by_name(movie.folder_name)
 			puts "looking for: #{movie.folder_name}"
 			next unless movie_data
 			first_data = movie_data.first
 			next unless first_data
-			update_data(movie, first_data['Title'], first_data['imdbID'])
+			update_data(movie, first_data['imdbID'])
 			how_many += 1
 		end
 		how_many
 	end
 
-	def search_data(folder_name)
+	def search_by_id(imdb_id)
+		imdb_search_object = IMDB.new(imdb_id).info
+		imdb_search = JSON.parse imdb_search_object.body
+		imdb_search
+	end
+
+	def search_by_name(folder_name)
 		imdb_search_object = IMDB.new(process_folder_name(folder_name)).search
 		hashyk = JSON.parse imdb_search_object.body
 		imdb_search = hashyk['Search']
@@ -43,9 +49,10 @@ module MoviesHelper
 		imdb_search
 	end
 
-	def update_data(movie, name, imdb_id)
-		movie.name = name
-		movie.imdb_id = imdb_id
+	def update_data(movie, imdb_id)
+		data = search_by_id(imdb_id)
+		movie.name = data['Title']
+		movie.imdb_id = data['imdbID']
 		movie.tagged = true
 		movie.save
 	end

@@ -6,9 +6,9 @@
 		<p><%= link_to('Back to device (' + @movie.device.name + ')', user_device_path(@user, @movie.device)) %></p>
 
 		<% if not @movie.tagged %>
-			<% if @imdb_search %>
 			<%= form_for([@user, @movie]) do |f| %>
 				<%= f.submit "Save choice", class: "btn btn-primary" %>
+				<% if @imdb_search and not @imdb_search.empty? %>
 				<table width=100%>
 					<tr>
 						<th>Name</th>
@@ -21,13 +21,15 @@
 						<td><%= movie["Title"] %></td>
 						<td><%= movie["Year"] %></td>
 						<td><%= link_to(movie["imdbID"], "http://www.imdb.com/title/" + movie["imdbID"]) %></td>
-						<td><%= f.radio_button(:imdb_id, movie["imdbID"] + '_' + movie["Title"]) %></td>
+						<td><%= f.radio_button(:imdb_id, movie["imdbID"]) %></td>
 					</tr>
 				<% end %>
 				</table>
-			<% end %>
+				Other
 			<% else %>
-				No suggestions available
+				<br><br>Please, search on your own :)<br>
+			<% end %>
+			<%= f.text_field :imdb_id, :placeholder => "imdb id", :value => "" %>
 			<% end %>
 		<% else %>
 			<%= form_for([@user, @movie], :method => :delete) do |f| %>

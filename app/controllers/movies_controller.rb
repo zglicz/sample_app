@@ -2,19 +2,13 @@ class MoviesController < ApplicationController
 	before_action :signed_in_user, :correct_user_with_user_id, :setup_devices, :setup_movie
 
 	def show
-		if not @movie.tagged
-			@imdb_search = search_data(@movie.folder_name)
-		else # tagged movie
-			imdb_search_object = IMDB.new(@movie.imdb_id).info
-			@imdb_search = JSON.parse imdb_search_object.body
-		end
+		@imdb_search = @movie.tagged ? search_by_id(@movie.imdb_id) : search_by_name(@movie.folder_name)
 	end
 
 	def update
 		imdb_info = params[:movie][:imdb_id]
 		if imdb_info
-			result = imdb_info.split('_')
-			update_data(@movie, result[1], result[0])
+			update_data(@movie, imdb_info)
 			flash[:success] = "Successfully tagged movie"
 		else
 			flash[:error] = "Select one movie"
