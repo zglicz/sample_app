@@ -172,7 +172,7 @@ aside {
     resize: none;
     @include box_sizing;
   }
-  .btn {
+  .btn-primary {
     width: 100%;
   }
   #device_name {
@@ -186,23 +186,13 @@ aside {
     margin-top: 6px;
     margin-bottom: 5px;
   }
-  #file_holder {
+  input[type="file"].hidden-input {
+    /* display:none on the input won't trigger the click event in WebKit.
+       Setting visibility to hidden and width 0 works.*/
+    visibility: hidden;
+    width: 0;
+    height: 0;
     position: relative;
-    display: inline-block;
-    overflow: hidden;
-    .wrapper {
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
-      top: 0;
-      z-index: 2;
-      :hover {
-        opacity: 0;
-      }
-      input {
-        @include box_sizing;
-      }
-    }
   }
 }
 
