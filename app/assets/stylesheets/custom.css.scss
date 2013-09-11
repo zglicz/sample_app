@@ -243,3 +243,9 @@ th .asc {
 th .desc {
   background-image: url('arrow-down-icon.png');
 }
+
+/* QA box */
+.show_hide {
+  display: none;
+  cursor: pointer;
+}

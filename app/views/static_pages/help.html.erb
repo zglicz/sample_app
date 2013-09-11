@@ -1,8 +1,39 @@
 <% provide(:title, 'Help') %>
 <h1>Help</h1>
+<div>
 <p>
-  Get help on the Ruby on Rails Tutorial at the
-  <a href="http://railstutorial.org/help">Rails Tutorial help page</a>.
-  To get help on this sample app, see the
-  <a href="http://railstutorial.org/book">Rails Tutorial book</a>.
+  Hey, this app was created to help you keep track of your video collection.
+  In order to use this app you have to use the Chrome browser. You can upload folders containing movies from mass storage places i.e. your computer or external hard drive.
+  Questions:
+  <ol>
+  	<li><a name="upload-device" class="show_hide">
+  			<b>How do I upload a device with movies?</b>
+  		</a>
+  		<div class="slidingDiv">
+  			A: Go to <%= link_to "Devices", user_devices_path(current_user) %>. At the top of the page insert information about your device. Then select button "Device location" and browse your folder browser to the folder you want to upload. You should select a folder that contains folder with movies.
+  		</div>
+  	</li>
+  	<li><a name="match-all-movies" class="show_hide">
+  		<b>How to automatically match movies to the Internet Movie Databse (IMDB)</b>
+  		</a>
+  		<div class="slidingDiv">
+  			A: Go to <%= link_to "Movies", current_user %> and then select <%= link_to "Match all movies", user_match_path(current_user) %>. Remeber, this could take a while. This matcher looks at the folder for the movie. The folder name should start in someway with the movie name. If there is no match found, then you can add an association by yourself.
+  		</div>
+  	</li>
+  	<li><a name="match-single-movie" class="show_hide">
+  			<b>How to match a single movie</b>
+  		</a>
+  		<div class="slidingDiv">
+  			You can do this when the movie is not currently matched. If the movie is already matched, but it is incorrect see: <%= link_to "How to remove an incorrect match", :anchor => "remove-incorrect-match" %>. At the bottom of the page there is text_area where you can paste the correct movie IMDB id.
+  			Example: if I have a movie Forrest Gump, its IMDB page is: <a href="http://www.imdb.com/title/tt0109830/">http://www.imdb.com/title/tt0109830/</a>, then the imdb id is: tt0109830. Just input this text and click "Save choice".
+  		</div>
+  	</li>
+  	<li><a name"remove-incorrect-match" class="show_hide">
+  			<b>How to remove an incorrect matching</b>
+  		</a>
+  		<div class="slidingDiv">
+  			Go to the movies page and then select the "Incorrect association". Then the you can <%= link_to "match the single movie", :anchor => "match-single-movie" %> or <%= link_to "try to automatically match all movies", :anchor => "match-all-movies" %>.
+  		</div>
+  	</li>
+  </ol>
 </p>

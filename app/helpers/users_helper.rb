@@ -8,6 +8,6 @@ module UsersHelper
 	end
 
 	def wrap(text)
-		text.length < 20 ? text : (text[0..20] + "...")
+		text.length < 30 ? text : (text[0..30] + "...")
 	end
 end

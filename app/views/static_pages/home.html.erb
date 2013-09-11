@@ -1,19 +1,24 @@
 <% if !signed_in? %>
 	<div class="center hero-unit">
-	  <h1>Welcome to the Sample App</h1>
+	  <h1>Welcome to the Video Collection</h1>
 
 	  <h2>
-	    This is the home page for the
-	    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-	    sample application.
+	    To find out more check out the <%= link_to("help page", help_path) %>
 	  </h2>
 
 	  <% if !signed_in? %>
 	  	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 	  <% end %>
 	</div>
-
-	<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
 <% else %>
-	<%= link_to("Devices", user_devices_path(current_user)) %>
+	<div class="row">
+		<%= render 'users/user_info' %>
+		<div class="span10">
+			You have: <%= link_to(pluralize(@user.devices.length, 'device'),user_devices_path(@user)) %>
+			<br>
+			You have: <%= link_to(pluralize(@user.movies.length, 'movie'), @user) %>
+			<br>
+			Your tag accuracy is: <%= '%.2f' % (@user.movies.where(tagged: true).length * 100.to_f / @user.movies.length) %>%
+		</div>
+	</div>
 <% end %>

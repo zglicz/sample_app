@@ -17,6 +17,7 @@ describe Movie do
   it { should respond_to(:user) }
   it { should respond_to(:device_id) }
   it { should respond_to(:device) }
+  it { should respond_to(:year) }
 
 
   its(:user) { should eq user }

@@ -15,9 +15,18 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
-$("document").ready(function(){
+function ready() {
 	$(".movies_search input").keyup(function() {
 		$.get($(".movies_search").attr('action'), $(".movies_search").serialize(), null, "script");
 		return false;
 	});
-});
+	$(".slidingDiv").hide();
+    $(".show_hide").show();
+ 
+	$('.show_hide').click(function(event){
+		$(this).next().slideToggle();
+	});
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

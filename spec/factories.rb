@@ -23,6 +23,7 @@ FactoryGirl.define do
     total_size 0
     imdb_id "<>"
     tagged false
+    year 0
     user
     device
   end

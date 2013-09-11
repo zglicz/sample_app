@@ -53,6 +53,7 @@ module MoviesHelper
 		data = search_by_id(imdb_id)
 		movie.name = data['Title']
 		movie.imdb_id = data['imdbID']
+		movie.year = data['Year']
 		movie.tagged = true
 		movie.save
 	end

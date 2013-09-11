@@ -2,6 +2,7 @@
 	<td title="<%= movie.name %>">
 		<%= link_to(wrap(movie.name), url_for([@user, movie])) %>
 	</td>
+	<td><%= movie.tagged ? movie.year : nil %></td>
 	<td><%= movie.no_of_files %></td>
 	<td><%= movie.total_size %></td>
 	<td>
@@ -11,6 +12,5 @@
 			<%= movie.imdb_id %>
 		<% end %>
 	</td>
-	<td><%= movie.tagged %></td>
 	<td><%= link_to(movie.device.name, url_for([@user, movie.device])) %></td>
 </tr>

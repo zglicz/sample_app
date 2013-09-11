@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905130933) do
+ActiveRecord::Schema.define(version: 20130911134855) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20130905130933) do
     t.integer  "device_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year"
   end
 
   add_index "movies", ["device_id", "folder_name"], name: "index_movies_on_device_id_and_folder_name", unique: true
